@@ -331,6 +331,8 @@ img {
   }
   #playerchoicespan, #computerchoicespan {
     display: block;
+    padding-top: 3px;
+    padding-bottom: 3px;
   }
   .image-container {
     height: 100px !important;
