@@ -63,7 +63,6 @@ function animate(selector){
     }, 100); 
 }
 
-
 function play(player_choice){
     win_score = userOption;
     // shows a random number and convert it to nearest small integer,
@@ -76,14 +75,46 @@ function play(player_choice){
     triestext.show(); 
   
     gameinfo.empty().append("<span id='playerchoicespan'>You choose "+"<p>"+`${choices[player_choice]}`+"</p>"+"</span>"+"<span id='computerchoicespan'>Computer chose "+"<p>"+`${choices[computer_choice]}`+"<p>"+"</span>");
-    if (player_choice - computer_choice == -1 || player_choice - computer_choice == 2) {
+    //if (player_choice - computer_choice == -1 || player_choice - computer_choice == 2) {
+        //player_score++;
+       // playerscore.html(player_score);
+        //beats.show();
+        //choicestitle.show();
+        //$('body').removeClass();
+    //}
+    if(
+        ((choices[player_choice]=='paper')&&(choices[computer_choice]=='rock'))
+        ||
+        ((choices[player_choice]=='rock')&&(choices[computer_choice]=='scissors'))
+        ||
+        ((choices[player_choice]=='scissors')&&(choices[computer_choice]=='paper'))
+        )
+    {
+
         player_score++;
         playerscore.html(player_score);
         beats.show();
         choicestitle.show();
         $('body').removeClass();
+
+    }    
+    else if(
+        ((choices[player_choice]=='rock')&&(choices[computer_choice]=='paper'))
+        ||
+        ((choices[player_choice]=='scissors')&&(choices[computer_choice]=='rock'))
+        ||
+        ((choices[player_choice]=='paper')&&(choices[computer_choice]=='scissors'))
+        )
+        {
+        if(!(player_score>win_score)){
+             // if players wins stop computer of playing
+             computer_score++; //else computer is playing 
+        }
+        computerscore.html(computer_score);
+        beats.show();
+        choicestitle.show();
+        
     }
- 
         if(
             ((choices[player_choice]=='rock')&&(choices[computer_choice]=='paper'))
             ||
@@ -130,15 +161,7 @@ function play(player_choice){
     
         beats.hide();
     }
-    else{
-        if(!(player_score>win_score)){ // if players wins stop computer of playing
-            computer_score++; //else computer is playing 
-        }
-        computerscore.html(computer_score);
-        beats.show();
-        choicestitle.show();
-        
-    }
+
     if(player_score>win_score){
        // gameinfo.html("<span id='win' class='smoothtransition'><img src='images/win.png' alt='win'><p class='winner'>You won</p></span>");
         gameinfo.fadeOut(300, function() { 
