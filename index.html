@@ -18,7 +18,17 @@
   <body>
   <div class="container">
     <div class="purple"></div>
-    <div class="purplelight"><h1>Rock-paper-Scissors Game</h1><div class="theme__button" style="background: rgb(255, 87, 34);"><i class="material-icons">videogame_asset</i></div></div>
+    <div class="purplelight"><h1>Rock-paper-Scissors Game</h1><div class="theme__button" style="background: rgb(255, 87, 34);"><i class="material-icons">videogame_asset</i></div></div>     
+    <div id="selectrounds">
+      <span class="info">Press start to play</span> 
+      <span class="winscore">3</span> <span class="winscore">5</span> <span class="winscore">10</span>
+    </div>
+    <div class="buttonspace">
+      <button type="button" id="restartbutton" onclick="restart()" class="btn btn-danger-outline waves-effect">restart</button>
+     </div>
+    <div class="startbuttonspace">
+      <button type="button" id="startbutton" onclick="start()" class="btn btn-danger-outline waves-effect">Start</button>
+     </div>
     <div class="weapons grid-1">
       <div class="image-container">
         <div id="rock" class="backgroundimage item"></div>
@@ -31,23 +41,19 @@
       </div>
   </div>
   <div id="main" class="init-game">
-    <h2>Score</h2>
       <div id="results">
-        <div><span class="aliceblueblackground">You : </span><span id="playerscore">0</span></div>
-        <div><span class="aliceblueblackground">Computer : </span><span id="computerscore">0</span></div>
+        <div><span class="aliceblueblackground">You:</span><span id="playerscore">0</span></div>
+        <div><h2>Score</h2></div>
+        <div><span class="aliceblueblackground">PC:</span><span id="computerscore">0</span></div>
       </div>
-      <h3 id="triestitle">Tries</h3>
-      <p class="triestext"></p>
-      <h3 class="choicestitle">Choices</h3><p class="beats"></p><div id="gameinfo"></div>
-      <div class="buttonspace">
-       <button type="button" id="startbutton" onclick="start()" class="btn btn-danger-outline waves-effect">Start</button>
-      </div> 
-    </div>
-    <div id="selectrounds">
-      <span class="info">Select rounds</span> 
-      <span class="winscore">3</span> <span class="winscore">5</span> <span class="winscore">10</span>
+      <div id="gameinfo" class="grid"></div>
+      <div id="extras">
+        <p class="triestitle triestext"></p>
+        <p class="choicestitle beats"></p>
+      </div>
     </div>
   </div>
+  <div id="homebackground" class="mainbackgroundimage"></div>
   <div id="attribution" class="container">
     <a href="https://www.vecteezy.com/free-vector/rock-paper-scissors">Rock Paper Scissors Vectors by Vecteezy</a>
     <a href="https://www.vecteezy.com/free-vector/champion">Champion Vectors by Vecteezy</a>
