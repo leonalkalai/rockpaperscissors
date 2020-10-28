@@ -5,6 +5,7 @@ const playerscore = $('#playerscore');
 const computerscore = $('#computerscore');
 const choicestitle = $('.choicestitle'); 
 const startbutton = $('#startbutton');
+const restartbutton = $('#restartbutton');
 const playerchoicespan = $('#playerchoicespan');
 const computerchoicespan = $('#computerchoicespan');
 const winscore = $('.winscore');
@@ -12,6 +13,8 @@ const beats = $('.beats');
 const triestext = $('.triestext');
 const triestitle = $('#triestitle'); 
 const info = $('.info'); 
+const extras = $('#extras');
+const homebackground = $('#homebackground');
 //serialize
 const choices = ['rock','scissors','paper'];
 let player_choice, computer_choice;
@@ -22,18 +25,35 @@ let startGame = true;
 var rounds = 0;
 var userOption;
 // hide things at the beggining to show them after 1rst play
-startbutton.hide();
+restartbutton.hide();
 choicestitle.hide();
 triestext.hide(); 
 triestitle.hide();
-
+$('.weapons').hide();
 $('h2').hide();
 $('#results').hide(); 
- 
-//function start for button restart
+$('.theme__button').html('<i class="material-icons">videogame_asset</i>').removeClass('exit');
+
+winscore.hide();
 start = ()=> {
+    $("#attribution").hide();
+    info.html('Select rounds :');
+    $('#startbutton').fadeOut(300);
+    $('.startbuttonspace').fadeOut(300);
+    setTimeout(() => {
+        winscore.show();
+    }, 300); 
+}
+
+//function start for button restart
+restart = ()=> {
+    $('.theme__button').html('<i class="material-icons">videogame_asset</i>').removeClass('exit');
+    extras.hide();
+    homebackground.show();
     $('.buttonspace').hide();
     $('body').removeClass();
+    $('.weapons').hide();
+    $('#results').hide(); 
     winscore.removeClass('chosen');
     weapons.css('pointer-events','none');
     startGame = true;
@@ -73,8 +93,9 @@ function play(player_choice){
     choicestitle.show(); // show choices heading
     triestitle.show(); // show tries title
     triestext.show(); 
-  
-    gameinfo.empty().append("<span id='playerchoicespan'>You choose "+"<p>"+`${choices[player_choice]}`+"</p>"+"</span>"+"<span id='computerchoicespan'>Computer chose "+"<p>"+`${choices[computer_choice]}`+"<p>"+"</span>");
+    extras.show();
+    $('.purplelight').removeClass('startgame');
+    gameinfo.empty().append("<span id='playerchoicespan'>You choose "+"<p>"+`${choices[player_choice]}`+"</p>"+"</span>"+"<span id='computerchoicespan'>PC chose "+"<p>"+`${choices[computer_choice]}`+"<p>"+"</span>");
     //if (player_choice - computer_choice == -1 || player_choice - computer_choice == 2) {
         //player_score++;
        // playerscore.html(player_score);
@@ -82,6 +103,7 @@ function play(player_choice){
         //choicestitle.show();
         //$('body').removeClass();
     //}
+    
     if(
         ((choices[player_choice]=='paper')&&(choices[computer_choice]=='rock'))
         ||
@@ -147,8 +169,9 @@ function play(player_choice){
         playerscore.html(player_score);
         computerscore.html(computer_score);
         $('body').removeClass().addClass('bodygreenlight');
+        gameinfo.removeClass().addClass('inline');
         gameinfo.fadeOut(300, function() { 
-                gameinfo.html('').append("<span id='tie' class='smoothtransition grid-2'><div class='tiebackground'></div>"+"<span>"+"<span class='aliceblueblackground'><p>"+`${choices[player_choice]}`+"</p>"+"<p> equals </p>"+"<p>"+`${choices[computer_choice]}`+"</p>"+"</span><p class='tietextp'>Its a tie</p>"+"</span>"+"</span>").fadeIn(300);
+                gameinfo.html('').append("<span id='tie' class='smoothtransition grid-2'><div class='tiebackground'></div>"+"<span>"+"<span class='aliceblueblackground'><p>"+`${choices[player_choice]}`+"</p>"+"<p> equals </p>"+"<p>"+`${choices[computer_choice]}`+"</p>"+"</span>"+"</span>"+"</span>").fadeIn(300);
             });
 
           setTimeout(() => {
@@ -159,29 +182,38 @@ function play(player_choice){
  
         }, 400); 
     
-        beats.hide();
+        beats.empty().append('tie');
     }
 
     if(player_score>win_score){
+        gameinfo.removeClass().addClass('inline');
        // gameinfo.html("<span id='win' class='smoothtransition'><img src='images/win.png' alt='win'><p class='winner'>You won</p></span>");
         gameinfo.fadeOut(300, function() { 
             gameinfo.html('').append("<span id='win' class='smoothtransition'><img src='images/win.png' alt='win'><p class='winner'>You won</p></span>").fadeIn(300);
         });
+        info.html('restart of close game');
         $('.buttonspace').show(); 
         choicestitle.hide();
         triestext.hide(); 
         triestitle.hide();
-        beats.hide();
+        extras.hide();
+        $('.weapons').hide();
+        beats.empty().append('tie');
         startGame=false;
-        startbutton.html('restart');
         $('body').removeClass().addClass('bodypurplelight');
-        startbutton.css('width','140px');
-        startbutton.show();
+        restartbutton.css('width','140px');
+        restartbutton.show();
+        $('.theme__button').html('X').addClass('exit');
+        document.querySelector('.theme__button').addEventListener('click',()=>{
+            var win = window.open("about:blank", "_self");
+            win.close();
+        });  
         choicestitle.html('');
     }
     if(computer_score>win_score){
         //gameinfo.html("<span id='win'class='smoothtransition'><img src='images/lose.png' alt='lose'><p class='loser'>You lose</p></span>");
-        
+        gameinfo.removeClass().addClass('inline');
+        info.html('restart of close game');
         gameinfo.fadeOut(100, function() { 
             gameinfo.html('').append("<span id='win'class='smoothtransition'><img src='images/lose.png' alt='lose'><p class='loser'>You lose</p></span>").fadeIn(100);
         });
@@ -189,12 +221,18 @@ function play(player_choice){
         choicestitle.hide();
         triestext.hide(); 
         triestitle.hide();
-        beats.hide();
+        extras.hide();
+        $('.weapons').hide();
+        beats.empty().append('tie');
         startGame=false;
-        startbutton.html('restart');
         $('body').removeClass().addClass('bodypurplelight');
-        startbutton.css('width','140px');
-        startbutton.show();
+        restartbutton.css('width','140px');
+        restartbutton.show();
+        $('.theme__button').html('X').addClass('exit');
+        document.querySelector('.theme__button').addEventListener('click',()=>{
+            var win = window.open("about:blank", "_self");
+            win.close();
+        });
         choicestitle.html(''); 
     }
 }
@@ -202,10 +240,8 @@ document.querySelector('#rock').addEventListener('click',(event)=>{
     if((player_score>win_score)||(computer_score>win_score)){
         event.stopImmediatePropagation();
     }
-    $("#attribution").hide();
     player_choice=0;
     if(startGame){
-        startbutton.hide();
         play(player_choice);
     }
     
@@ -214,10 +250,8 @@ document.querySelector('#scissors').addEventListener('click',(event)=>{
     if((player_score>win_score)||(computer_score>win_score)){
         event.stopImmediatePropagation(); 
     }
-    $("#attribution").hide();
     player_choice=1;
     if(startGame){
-        startbutton.hide();
         play(player_choice);
     }
 });
@@ -225,10 +259,8 @@ document.querySelector('#paper').addEventListener('click',(event)=>{
     if((player_score>win_score)||(computer_score>win_score)){
         event.stopImmediatePropagation();
     }
-    $("#attribution").hide();
     player_choice=2;
     if(startGame){
-        startbutton.hide();
         play(player_choice);
     }
 });
@@ -245,7 +277,7 @@ weapons.click(function() {
 weapons.each(function() {
     weapons.css('pointer-events','none');
     $(this).on("click", function(event){
-        info.hide(); //hide select weapon text
+        //info.hide(); //hide select weapon text
         rounds++; // add rounds on each click  
         triestext.empty().append('You got: '+ player_score +' wins '+"/"+' at '+ rounds+' tries'); // append playerscore on each round
         if((player_score>win_score)||(computer_score>win_score)){ // if player wins or computer wins then desable click
@@ -272,14 +304,19 @@ winscore.each(function() {
     $(this).on("click", function(event){
         userOption = parseInt($(this).text()-1); 
         $(this).addClass('chosen');
+        $('.purplelight').addClass('startgame');
         weapons.css('pointer-events','auto');
-        $('h1').css('height','80px').css('line-height','45px');
+        //$('h1').css('height','80px').css('line-height','45px');
         $('#main').removeClass('init-game');
-        $('h2').show();
-        $('#results').show();
         $('.buttonspace').hide(); 
-        info.html('Select a weapon'); 
-        winscore.fadeOut(1200);
+        homebackground.hide();
+        info.html('Select a weapon : '); 
+        winscore.fadeOut(500);
+        setTimeout(() => {
+            $('#results').show();
+            $('.weapons').show();
+            $('h2').show();
+        }, 500); 
     
     });
 });    
