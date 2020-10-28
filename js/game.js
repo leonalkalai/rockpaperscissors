@@ -36,7 +36,6 @@ $('.theme__button').html('<i class="material-icons">videogame_asset</i>').remove
 
 winscore.hide();
 start = ()=> {
-    $("#attribution").hide();
     info.html('Select rounds :');
     $('#startbutton').fadeOut(300);
     $('.startbuttonspace').fadeOut(300);
@@ -49,11 +48,13 @@ start = ()=> {
 restart = ()=> {
     $('.theme__button').html('<i class="material-icons">videogame_asset</i>').removeClass('exit');
     extras.hide();
+    $("#attribution").show();
     homebackground.show();
     $('.buttonspace').hide();
-    $('body').removeClass();
+    $('body').removeClass().addClass('whitebackground');
     $('.weapons').hide();
     $('#results').hide(); 
+    $('#main').hide(); 
     winscore.removeClass('chosen');
     weapons.css('pointer-events','none');
     startGame = true;
@@ -65,7 +66,6 @@ restart = ()=> {
     info.html('Select rounds');
     gameinfo.html('');
     choicestitle.html('Choices');
-    $("#attribution").hide();
     startbutton.hide();
     beats.hide();
     info.show();
@@ -90,12 +90,16 @@ function play(player_choice){
     // and we have an array of values from 0-2 so it will show our array values
     computer_choice = Math.floor(Math.random()*3); 
     info.show(); // on start game show usefull info
+    homebackground.hide();
+    $("#attribution").hide();
     choicestitle.show(); // show choices heading
     triestitle.show(); // show tries title
     triestext.show(); 
     extras.show();
+    $('#main').show(); 
+    $('#results').show();
     $('.purplelight').removeClass('startgame');
-    gameinfo.empty().append("<span id='playerchoicespan'>You choose "+"<p>"+`${choices[player_choice]}`+"</p>"+"</span>"+"<span id='computerchoicespan'>PC chose "+"<p>"+`${choices[computer_choice]}`+"<p>"+"</span>");
+    gameinfo.empty().append("<span id='playerchoicespan'>You choose "+"<p>"+`${choices[player_choice]}`+"</p>"+"</span>"+"<span id='computerchoicespan'>PC chose "+"<p>"+`${choices[computer_choice]}`+"</p>"+"</span>");
     //if (player_choice - computer_choice == -1 || player_choice - computer_choice == 2) {
         //player_score++;
        // playerscore.html(player_score);
@@ -103,7 +107,29 @@ function play(player_choice){
         //choicestitle.show();
         //$('body').removeClass();
     //}
-    
+ 
+    if(choices[player_choice]=='rock')
+    {
+        $('#playerchoicespan > p').empty().append("<div id='rock' class='backgroundimage item'></div>");
+    }
+    if(choices[player_choice]=='paper'){
+        $('#playerchoicespan > p').empty().append("<div id='paper' class='backgroundimage item'></div>");
+    }
+    if(choices[player_choice]=='scissors'){
+        $('#playerchoicespan > p').empty().append("<div id='scissors' class='backgroundimage item'></div>");
+    }
+
+    if(choices[computer_choice]=='rock')
+    {
+        $('#computerchoicespan > p').empty().append("<div id='rock' class='backgroundimage item'></div>");
+    }
+    if(choices[computer_choice]=='paper'){
+        $('#computerchoicespan > p').empty().append("<div id='paper' class='backgroundimage item'></div>");
+    }
+    if(choices[computer_choice]=='scissors'){
+        $('#computerchoicespan > p').empty().append("<div id='scissors' class='backgroundimage item'></div>");
+    }
+
     if(
         ((choices[player_choice]=='paper')&&(choices[computer_choice]=='rock'))
         ||
@@ -117,7 +143,7 @@ function play(player_choice){
         playerscore.html(player_score);
         beats.show();
         choicestitle.show();
-        $('body').removeClass();
+        $('body').removeClass().addClass('purplebackground');
 
     }    
     else if(
@@ -168,7 +194,7 @@ function play(player_choice){
     else if(player_choice === computer_choice){
         playerscore.html(player_score);
         computerscore.html(computer_score);
-        $('body').removeClass().addClass('bodygreenlight');
+        $('body').removeClass().addClass('purplebackground');
         gameinfo.removeClass().addClass('inline');
         gameinfo.fadeOut(300, function() { 
                 gameinfo.html('').append("<span id='tie' class='smoothtransition grid-2'><div class='tiebackground'></div>"+"<span>"+"<span class='aliceblueblackground'><p>"+`${choices[player_choice]}`+"</p>"+"<p> equals </p>"+"<p>"+`${choices[computer_choice]}`+"</p>"+"</span>"+"</span>"+"</span>").fadeIn(300);
@@ -279,7 +305,7 @@ weapons.each(function() {
     $(this).on("click", function(event){
         //info.hide(); //hide select weapon text
         rounds++; // add rounds on each click  
-        triestext.empty().append('You got: '+ player_score +' wins '+"/"+' at '+ rounds+' tries'); // append playerscore on each round
+        triestext.empty().append('You got: '+ player_score +"/"+ rounds); // append playerscore on each round
         if((player_score>win_score)||(computer_score>win_score)){ // if player wins or computer wins then desable click
             event.stopImmediatePropagation();
         }
@@ -308,12 +334,11 @@ winscore.each(function() {
         weapons.css('pointer-events','auto');
         //$('h1').css('height','80px').css('line-height','45px');
         $('#main').removeClass('init-game');
+        $('body').removeClass().addClass('whitebackground');
         $('.buttonspace').hide(); 
-        homebackground.hide();
         info.html('Select a weapon : '); 
         winscore.fadeOut(500);
         setTimeout(() => {
-            $('#results').show();
             $('.weapons').show();
             $('h2').show();
         }, 500); 
