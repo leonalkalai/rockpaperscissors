@@ -1,3 +1,19 @@
+#mask {
+  background-color: #fafafa;
+}
+
+#selectrounds {
+  background: #fafafa;
+}
+
+.whitebackground {
+  background-color: #fafafa;
+}
+
+.purplebackground {
+  background-color: #512DA8;
+}
+
 .orangebackground {
   background-color: #fd8a29;
 }
@@ -17,7 +33,7 @@
 body, h1, span {
   text-align: center;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #34312d;
   font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
@@ -62,13 +78,16 @@ body, h1, span {
   text-align: center;
   margin: 0 auto;
   width: 100%;
-  z-index: -1;
+  z-index: 100;
+  background: #34312d;
 }
 
 .weapons {
   background: #f0f8ff;
   z-index: auto;
-  padding: 8px 0;
+  padding: 0;
+  height: 160px;
+  line-height: 100px;
 }
 
 #attribution a {
@@ -79,8 +98,8 @@ h1 {
   font-size: 1.5em;
   color: #fafafa;
   margin: 10px auto;
-  line-height: 200px;
-  height: 200px;
+  line-height: 145px;
+  height: 145px;
   background-color: #673AB7;
 }
 
@@ -113,7 +132,7 @@ h1 {
   width: 36px;
   text-align: center;
   padding: 15px;
-  bottom: -25px;
+  bottom: -32px;
   right: 25px;
   font-family: "Material Icons";
   -webkit-transition: all .2s ease;
@@ -220,6 +239,7 @@ img {
   transition: -webkit-transform 0.2s;
   transition: transform 0.2s;
   transition: transform 0.2s, -webkit-transform 0.2s;
+  margin-top: 0;
 }
 
 .image-container > .item.scale {
@@ -276,6 +296,7 @@ img {
   -ms-grid-column: 3;
   -ms-grid-column-span: 3;
   grid-column: 3 / 6;
+  margin: 0 !important;
 }
 
 .info {
@@ -296,7 +317,7 @@ img {
   background-color: #673AB7;
   color: aliceblue;
   font-size: 1.6em;
-  width: 100%;
+  width: 300px;
 }
 
 #playerscore, #computerscore {
@@ -321,7 +342,6 @@ img {
 }
 
 #playerchoicespan p, #computerchoicespan p {
-  background-color: #ff5723;
   margin: 2px auto;
   width: 150px;
 }
@@ -349,11 +369,13 @@ img {
 
 #gameinfo {
   margin: 0;
+  width: 100%;
+  background: #512da8;
 }
 
 .buttonspace {
-  background: #512da8;
-  height: 100px;
+  background: #fafafa;
+  height: 110px;
   line-height: 100px;
   display: none;
   z-index: 7;
@@ -423,6 +445,13 @@ img {
 }
 
 @media screen and (max-width: 60rem) {
+  #win, #tie {
+    width: 100% !important;
+  }
+  .tiebackground {
+    background-size: 100% !important;
+    width: 120px !important;
+  }
   #results span {
     font-size: 1.2em !important;
   }
@@ -442,6 +471,7 @@ img {
     padding-top: 3px;
     padding-bottom: 5px;
     font-size: 1.2em !important;
+    width: 150px;
   }
   .image-container {
     height: 100px !important;
@@ -449,10 +479,14 @@ img {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    margin-top: 0;
   }
   .backgroundimage {
     height: 100px !important;
     width: 100px !important;
+  }
+  .weapons {
+    height: 110px;
   }
   img {
     height: auto;
@@ -488,7 +522,7 @@ img {
   border-radius: 38px;
   cursor: pointer;
   display: block;
-  height: 39vh;
+  height: 45vh;
   margin: 10px auto;
   -webkit-transition: -webkit-transform 0.2s;
   transition: -webkit-transform 0.2s;
@@ -506,6 +540,10 @@ img {
 
 #homebackground {
   background-image: url(../images/main.svg);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
 }
 
 #rock {
@@ -522,15 +560,15 @@ img {
 
 .tiebackground {
   background-image: url(../images/tie.png);
-  background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
   -ms-grid-column: 3;
   -ms-grid-column-span: 1;
   grid-column: 3 / 4;
-  width: 120px;
   display: -ms-inline-grid;
   display: inline-grid;
+  background-size: contain;
+  width: 100%;
 }
 
 .tietext {
@@ -567,7 +605,7 @@ img {
 }
 
 #win, #tie {
-  width: 100%;
+  width: 50%;
   padding: 0px;
   display: -ms-grid;
   display: grid;
@@ -591,7 +629,7 @@ img {
   -ms-grid-column: 4;
   grid-column: 4 / 4;
   background: transparent;
-  height: 110px;
+  height: 126px;
   line-height: 105px;
   -webkit-box-shadow: none;
           box-shadow: none;
