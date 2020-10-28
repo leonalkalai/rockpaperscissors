@@ -182,7 +182,7 @@ function play(player_choice){
  
         }, 400); 
     
-        beats.empty().append('tie');
+        beats.empty().append('its a tie');
     }
 
     if(player_score>win_score){
@@ -198,7 +198,7 @@ function play(player_choice){
         triestitle.hide();
         extras.hide();
         $('.weapons').hide();
-        beats.empty().append('tie');
+        beats.empty().append('its a tie');
         startGame=false;
         $('body').removeClass().addClass('bodypurplelight');
         restartbutton.css('width','140px');
@@ -223,7 +223,7 @@ function play(player_choice){
         triestitle.hide();
         extras.hide();
         $('.weapons').hide();
-        beats.empty().append('tie');
+        beats.empty().append('its a tie');
         startGame=false;
         $('body').removeClass().addClass('bodypurplelight');
         restartbutton.css('width','140px');
